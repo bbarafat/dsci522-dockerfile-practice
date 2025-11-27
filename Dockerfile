@@ -1,8 +1,6 @@
 FROM quay.io/jupyter/minimal-notebook:afe30f0c9ad8
-
-# copy the lockfile into the container
-COPY conda-linux-64.lock conda-linux-64.lock
-
-RUN conda update --quiet --file conda-linux-64.lock \
-  && fix-permissions "${CONDA_DIR}" \
-  && fix-permissions "/home/${NB_USER}"
+COPY conda-linux-64.lock /tmp/conda-linux-64.lock
+RUN mamba create --yes --name base --file /tmp/conda-linux-64.lock \
+    && mamba clean --all -y -f \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "/home/${NB_USER}"

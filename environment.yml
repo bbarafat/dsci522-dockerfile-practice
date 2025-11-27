@@ -1,0 +1,9 @@
+name: docker-practice
+channels:
+  - conda-forge
+dependencies:
+  - seaborn
+  - pandas
+  - python=3.11
+  - conda-lock
+
